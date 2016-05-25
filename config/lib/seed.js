@@ -71,7 +71,7 @@ function seedTheUser (user) {
 
       var User = mongoose.model('User');
       // set the new password
-      user.password = password;
+      user.password =  'ZAQ!2wsxcd';//password;
 
       if (user.username === seedOptions.seedAdmin.username && process.env.NODE_ENV === 'production') {
         checkUserNotExists(user)

@@ -77,7 +77,7 @@ module.exports = {
   },
   livereload: true,
   seedDB: {
-    seed: process.env.MONGO_SEED === 'true' ? true : false,
+    seed: true,//process.env.MONGO_SEED === 'true' ? true : false,
     options: {
       logResults: process.env.MONGO_SEED_LOG_RESULTS === 'false' ? false : true,
       seedUser: {

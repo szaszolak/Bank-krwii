@@ -6,7 +6,13 @@
         </thead>
         <tbody>
           <tr>
-            <td ng-repeat="blood in station.suplies">{{blood}}</td>
-          </tr>
+            <td ng-bind="station.zero_minus"></td>
+            <td ng-bind="station.zero_plus"></td>
+            <td ng-bind="station.A_minus"></td>
+            <td ng-bind="station.A_plus"></td>
+            <td ng-bind="station.B_minus"></td>
+            <td ng-bind="station.B_plus"></td>
+            <td ng-bind="station.AB_minus"></td>
+            <td ng-bind="station.AB_plus"></td>
         </tbody>
 </table>

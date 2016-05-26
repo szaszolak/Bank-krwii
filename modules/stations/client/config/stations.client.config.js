@@ -28,11 +28,5 @@
       state: 'stations.create',
       roles: ['admin']
     });
-      // Add the dropdown create item
-    Menus.addSubMenuItem('topbar', 'stations', {
-      title: 'Zarządzaj',
-      state: 'stations.manage',
-      roles: ['manager','admin']
-    });
   }
 })();

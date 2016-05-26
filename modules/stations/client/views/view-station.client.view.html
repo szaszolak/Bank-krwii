@@ -1,7 +1,7 @@
 <section>
   <div class="page-header">
     <h1 data-ng-bind="vm.station.name"></h1>
-     <div data-ng-show="vm.station.isCurrentUserOwner">
+     <div data-ng-show="vm.isManager">
         <a class="btn btn-primary"
           data-ui-sref="stations.edit({ stationId: vm.station._id })">
           <i class="glyphicon glyphicon-edit"></i>
@@ -10,11 +10,11 @@
           <i class="glyphicon glyphicon-trash"></i>
         </a>
       </div>
-       <a class="btn btn-primary" ui-sref="transfers.create({source: vm.station._id})">
+       <a ng-show="vm.isAuthorizedToRequestTransfer" class="btn btn-primary" ui-sref="transfers.create({source: vm.station._id})">
           Transfer
        </a>
   </div>
  
   <p class="lead" data-ng-bind="vm.station.addres"></p>
-  <blood-suplies ></blood-suplies>
+  <blood-suplies ng-show="vm.isManager"></blood-suplies>
 </section>

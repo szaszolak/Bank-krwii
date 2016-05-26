@@ -60,22 +60,6 @@
         data:{
           pageTitle: 'Station {{ articleResolve.name }}'
         }
-      })
-      .state('stations.manage', {
-        url: '/:stationId/manage',
-        templateUrl: 'modules/stations/client/views/view-station.client.view.html',
-        controller: 'StationsController',
-        controllerAs: 'vm',
-        resolve: {
-            stationResolve: function($stateParams, StationsService){
-                    debugger; 
-            $stateParams.stationId = user.station
-            return getStation($stateParams, StationsService); }
-        },
-        data:{
-          pageTitle: 'Zarządaj stacją {{ articleResolve.name }}',
-          roles:['manager','admin']
-        }
       });
   }
 

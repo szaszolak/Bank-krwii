@@ -16,7 +16,8 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-
+    vm.isManager = user.roles.includes("manager") && user.station === station._id;
+    vm.isAuthorizedToRequestTransfer = user.roles.includes("manager") && !(user.station === station._id);
 
     // Remove existing Station
     function remove() {

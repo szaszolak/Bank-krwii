@@ -6,12 +6,23 @@
     <form name="vm.form.transferForm" class="form-horizontal" ng-submit="vm.save(vm.form.transferForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.transfer.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.transferForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Transfer name is required.</p>
+          <label class="control-label" for="amount">Ilość</label>
+          <input name="amount" type="number" ng-model="vm.transfer.amount" id="amount" class="form-control" placeholder="Ilość" required>
+          <div ng-messages="vm.form.transferForm.amount.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Podaj ilość</p>
           </div>
         </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="bloodType">Grupa Krwii</label>
+          <select name="bloodType" id="bloodType" ng-model="vm.transfer.bloodType" class="form-control" placeholder="Grupa Krwii" required>
+            <option ng-repeat="type in vm.types" value="{{type}}">{{type}}</option>
+          </select>
+          <div ng-messages="vm.form.transferForm.bloodType.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Wypełnij grupę krwii dawcy.</p>
+          </div>
+        </div>
+
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.transfer._id ? 'Update' : 'Create'}}</button>
         </div>

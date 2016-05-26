@@ -69,7 +69,7 @@
         resolve: {
             stationResolve: function($stateParams, StationsService){
                     debugger; 
-            $stateParams.stationId = user.station._id 
+            $stateParams.stationId = user.station
             return getStation($stateParams, StationsService); }
         },
         data:{

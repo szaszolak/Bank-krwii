@@ -26,6 +26,7 @@ exports.update = function (req, res) {
   user.lastName = req.body.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
+  user.station = mongoose.Types.ObjectId(req.body.station._id);
 
   user.save(function (err) {
     if (err) {

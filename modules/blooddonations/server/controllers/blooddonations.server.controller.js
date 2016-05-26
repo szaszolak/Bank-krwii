@@ -15,7 +15,8 @@ var path = require('path'),
 exports.create = function(req, res) {
   var blooddonation = new Blooddonation(req.body);
   blooddonation.user = req.user;
-
+  blooddonation.donnor = mongoose.Types.ObjectId(req.body.donnor._id);
+  
   blooddonation.save(function(err) {
     if (err) {
       return res.status(400).send({

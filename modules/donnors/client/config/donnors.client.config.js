@@ -10,7 +10,7 @@
   function menuConfig(Menus) {
     // Set top bar menu items
     Menus.addMenuItem('topbar', {
-      title: 'Donnors',
+      title: 'Dawcy',
       state: 'donnors',
       type: 'dropdown',
       roles: ['*']
@@ -18,13 +18,13 @@
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'donnors', {
-      title: 'List Donnors',
+      title: 'Lista',
       state: 'donnors.list'
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'donnors', {
-      title: 'Create Donnor',
+      title: 'Dodaj',
       state: 'donnors.create',
       roles: ['user']
     });

@@ -10,7 +10,7 @@
 
   function StationsService($resource) {
     return $resource('api/stations/:stationId', {
-      stationId: '@_id'
+      stationId: '@_id',
     }, {
       update: {
         method: 'PUT'

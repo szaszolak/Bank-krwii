@@ -1,0 +1,51 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.donnor._id ? 'Edytuj Dawce' : 'Dodaj Dawce'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.donnorForm" class="form-horizontal" ng-submit="vm.save(vm.form.donnorForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Imię</label>
+          <input name="name" type="text" ng-model="vm.donnor.name" id="name" class="form-control" placeholder="Imie" required>
+          <div ng-messages="vm.form.donnorForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Wypełnij imię dawcy.</p>
+          </div>
+        </div>
+
+         <div class="form-group" show-errors>
+          <label class="control-label" for="surname">Nazwisko</label>
+          <input name="surname" type="text" ng-model="vm.donnor.surname" id="surname" class="form-control" placeholder="Nazwisko" required>
+          <div ng-messages="vm.form.donnorForm.surname.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Wypełnij nazwisko dawcy.</p>
+          </div>
+        </div>
+
+         <div class="form-group" show-errors>
+          <label class="control-label" for="pesel">Pesel</label>
+          <input name="pesel" type="number" ng-model="vm.donnor.pesel" id="pesel" class="form-control" placeholder="pesel" required>
+          <div ng-messages="vm.form.donnorForm.pesel.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Wypełnij pesel dawcy.</p>
+          </div>
+        </div>
+
+         <div class="form-group" show-errors>
+          <label class="control-label" for="blood_type">Grupa Krwii</label>
+          <select name="blood_type" id="blood_type" ng-model="vm.donnor.blood_type" class="form-control" placeholder="Grupa Krwii" required>
+            <option ng-repeat="type in vm.types" value="{{type}}">{{type}}</option>
+          </select>
+          <div ng-messages="vm.form.donnorForm.blood_type.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Wypełnij grupę krwii dawcy.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">Zapisz</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -37,7 +37,7 @@ exports.read = function(req, res) {
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   station.isCurrentUserOwner = req.user && station.user && station.user._id.toString() === req.user._id.toString() ? true : false;
-
+  
   res.jsonp(station);
 };
 
@@ -48,13 +48,14 @@ exports.update = function(req, res) {
   var station = req.station ;
 
   station = _.extend(station , req.body);
-
+ 
   station.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+
       res.jsonp(station);
     }
   });

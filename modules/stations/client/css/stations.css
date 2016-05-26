@@ -1,3 +1,5 @@
-.input-table {
-		max-width: 50%;
+.blood-input {
+		width:100px !important;
+		display:block;
+		float:right;
 }

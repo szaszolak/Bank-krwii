@@ -16,7 +16,7 @@
         <div class="form-group" show-errors>
           <label class="control-label" for="bloodType">Grupa Krwii</label>
           <select name="bloodType" id="bloodType" ng-model="vm.transfer.bloodType" class="form-control" placeholder="Grupa Krwii" required>
-            <option ng-repeat="type in vm.types" value="{{type}}">{{type}}</option>
+            <option ng-repeat="type in vm.types" value="{{type.value}}">{{type.name}}</option>
           </select>
           <div ng-messages="vm.form.transferForm.bloodType.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Wypełnij grupę krwii dawcy.</p>

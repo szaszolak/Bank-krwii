@@ -24,7 +24,7 @@
         }
       })
       .state('transfers.create', {
-        url: '/create',
+        url: '/create?:source',
         templateUrl: 'modules/transfers/client/views/form-transfer.client.view.html',
         controller: 'TransfersController',
         controllerAs: 'vm',

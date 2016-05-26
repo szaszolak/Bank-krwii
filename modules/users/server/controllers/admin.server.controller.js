@@ -27,8 +27,15 @@ exports.update = function (req, res) {
   user.displayName = user.firstName + ' ' + user.lastName;
   user.roles = req.body.roles;
 
-  var station = JSON.parse(req.body.station);
-  user.station = mongoose.Types.ObjectId(station._id);
+  if(req.body.station){
+    var station = JSON.parse(req.body.station);
+    user.station = mongoose.Types.ObjectId(station._id);
+
+    console.log("user.station");
+    console.log(user.station);
+  } else {
+    user.station = null;
+  }
 
   user.save(function (err) {
     if (err) {

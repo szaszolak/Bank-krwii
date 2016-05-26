@@ -1,32 +1,31 @@
-<section>
-  <div class="page-header">
-    <h1>{{vm.blooddonation._id ? 'Edytuj Donacje' : 'Nowa Donacja'}}</h1>
-  </div>
-  <div class="col-md-12">
+<section> 
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <div class="page-header">
+      <h1>{{vm.blooddonation._id ? 'Edytuj Donacje' : 'Nowa Donacja'}}</h1>
+    </div>
+
     <form name="vm.form.blooddonationForm" class="form-horizontal" ng-submit="vm.save(vm.form.blooddonationForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="donnor">Dawca</label> 
           <input type="search" class="form-control" placeholder="Wyszukaj dawce" results="0" ng-model="searchText.pesel" />
           <select name="donnor" id="donnor" ng-model="vm.blooddonation.donnor" class="form-control" placeholder="Dawca" required>
-            <option ng-repeat="donnor in vm.donnors | filter:searchText.pesel" value="{{donnor.id}}">{{donnor.pesel}}</option>
+            <option ng-repeat="donnor in vm.donnors | filter:searchText.pesel" value="{{donnor}}">{{donnor.pesel}}</option>
           </select>
-          <div>
-            {{vm.blooddonation.donnor.id}} {{vm.blooddonation.donnor.surname}}
-          </div>
           <div ng-messages="vm.form.blooddonationForm.donnor.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Blooddonation name is required.</p>
+            <p class="help-block error-text" ng-message="required">Uzupełnij dawcę.</p>
           </div>
         </div>
           <div class="form-group" show-errors>
           <label class="control-label" for="amount">Ilość</label> 
           <input name="amount" id="amount" type="number" class="form-control" placeholder="Ilość" ng-model="donnation.amount" required/>          
           <div ng-messages="vm.form.blooddonationForm.amount.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Blooddonation name is required.</p>
+            <p class="help-block error-text" ng-message="required">Uzupełnij ilość.</p>
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.blooddonation._id ? 'Update' : 'Create'}}</button>
+          <button type="submit" class="btn btn-default">Zapisz</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
@@ -34,4 +33,5 @@
       </fieldset>
     </form>
   </div>
+  <div class="col-md-4"></div>
 </section>

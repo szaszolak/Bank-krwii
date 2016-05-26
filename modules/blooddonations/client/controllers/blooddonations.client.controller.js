@@ -29,6 +29,7 @@
 
     // Save Blooddonation
     function save(isValid) {
+      debugger;
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.blooddonationForm');
         return false;

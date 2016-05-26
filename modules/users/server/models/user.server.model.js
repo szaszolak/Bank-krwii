@@ -70,6 +70,10 @@ var UserSchema = new Schema({
     type: String,
     default: 'modules/users/client/img/profile/default.png'
   },
+  station: {
+    type: Schema.ObjectId,
+    ref: 'Station'
+  },
   provider: {
     type: String,
     required: 'Provider is required'
@@ -79,7 +83,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['user','employee','manager', 'admin']
     }],
     default: ['user'],
     required: 'Please provide at least one role'

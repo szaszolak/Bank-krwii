@@ -11,11 +11,13 @@
   function StationsController ($scope, $state, Authentication, station) {
     var vm = this;
     vm.authentication = Authentication;
+    user = Authentication.user;
     vm.station = station;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
     vm.isManager = user.roles.includes("manager") && user.station === station._id;
     vm.isAuthorizedToRequestTransfer = user.roles.includes("manager") && !(user.station === station._id);
 

@@ -1,0 +1,17 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.donnor.name}} {{vm.donnor.surname}}</h1>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.donnor.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="donnors.edit({ donnorId: vm.donnor._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <p>Pesel: {{vm.donnor.pesel}} </p>
+  <p>Grupa Krwii: {{vm.donnor.blood_type}} </p>
+</section>

@@ -10,13 +10,13 @@
 
   function StationsController ($scope, $state, Authentication, station) {
     var vm = this;
-
     vm.authentication = Authentication;
     vm.station = station;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
 
     // Remove existing Station
     function remove() {
@@ -44,6 +44,8 @@
           stationId: res._id
         });
       }
+
+      
 
       function errorCallback(res) {
         vm.error = res.data.message;

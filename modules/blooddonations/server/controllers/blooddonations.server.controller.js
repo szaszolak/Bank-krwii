@@ -5,114 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Station = mongoose.model('Station'),
+  Blooddonation = mongoose.model('Blooddonation'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Station
+ * Create a Blooddonation
  */
 exports.create = function(req, res) {
-  var station = new Station(req.body);
-  station.user = req.user;
+  var blooddonation = new Blooddonation(req.body);
+  blooddonation.user = req.user;
 
-  station.save(function(err) {
+  blooddonation.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(station);
+      res.jsonp(blooddonation);
     }
   });
 };
 
 /**
- * Show the current Station
+ * Show the current Blooddonation
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var station = req.station ? req.station.toJSON() : {};
+  var blooddonation = req.blooddonation ? req.blooddonation.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  station.isCurrentUserOwner = req.user && station.user && station.user._id.toString() === req.user._id.toString() ? true : false;
-  
-  res.jsonp(station);
+  blooddonation.isCurrentUserOwner = req.user && blooddonation.user && blooddonation.user._id.toString() === req.user._id.toString() ? true : false;
+
+  res.jsonp(blooddonation);
 };
 
 /**
- * Update a Station
+ * Update a Blooddonation
  */
 exports.update = function(req, res) {
-  var station = req.station ;
+  var blooddonation = req.blooddonation ;
 
-  station = _.extend(station , req.body);
- 
-  station.save(function(err) {
+  blooddonation = _.extend(blooddonation , req.body);
+
+  blooddonation.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-
-      res.jsonp(station);
+      res.jsonp(blooddonation);
     }
   });
 };
 
 /**
- * Delete an Station
+ * Delete an Blooddonation
  */
 exports.delete = function(req, res) {
-  var station = req.station ;
+  var blooddonation = req.blooddonation ;
 
-  station.remove(function(err) {
+  blooddonation.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(station);
+      res.jsonp(blooddonation);
     }
   });
 };
 
 /**
- * List of Stations
+ * List of Blooddonations
  */
 exports.list = function(req, res) { 
-  Station.find().sort('-created').populate('user', 'displayName').exec(function(err, stations) {
+  Blooddonation.find().sort('-created').populate('user', 'displayName').exec(function(err, blooddonations) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(stations);
+      res.jsonp(blooddonations);
     }
   });
 };
 
 /**
- * Station middleware
+ * Blooddonation middleware
  */
-exports.stationByID = function(req, res, next, id) {
+exports.blooddonationByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Station is invalid'
+      message: 'Blooddonation is invalid'
     });
   }
 
-  Station.findById(id).populate('user', 'displayName').exec(function (err, station) {
+  Blooddonation.findById(id).populate('user', 'displayName').exec(function (err, blooddonation) {
     if (err) {
       return next(err);
-    } else if (!station) {
+    } else if (!blooddonation) {
       return res.status(404).send({
-        message: 'No Station with that identifier has been found'
+        message: 'No Blooddonation with that identifier has been found'
       });
     }
-    req.station = station;
+    req.blooddonation = blooddonation;
     next();
   });
 };

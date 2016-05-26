@@ -5,114 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Station = mongoose.model('Station'),
+  Donnor = mongoose.model('Donnor'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Station
+ * Create a Donnor
  */
 exports.create = function(req, res) {
-  var station = new Station(req.body);
-  station.user = req.user;
+  var donnor = new Donnor(req.body);
+  donnor.user = req.user;
 
-  station.save(function(err) {
+  donnor.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(station);
+      res.jsonp(donnor);
     }
   });
 };
 
 /**
- * Show the current Station
+ * Show the current Donnor
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var station = req.station ? req.station.toJSON() : {};
+  var donnor = req.donnor ? req.donnor.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  station.isCurrentUserOwner = req.user && station.user && station.user._id.toString() === req.user._id.toString() ? true : false;
-  
-  res.jsonp(station);
+  donnor.isCurrentUserOwner = req.user && donnor.user && donnor.user._id.toString() === req.user._id.toString() ? true : false;
+
+  res.jsonp(donnor);
 };
 
 /**
- * Update a Station
+ * Update a Donnor
  */
 exports.update = function(req, res) {
-  var station = req.station ;
+  var donnor = req.donnor ;
 
-  station = _.extend(station , req.body);
- 
-  station.save(function(err) {
+  donnor = _.extend(donnor , req.body);
+
+  donnor.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-
-      res.jsonp(station);
+      res.jsonp(donnor);
     }
   });
 };
 
 /**
- * Delete an Station
+ * Delete an Donnor
  */
 exports.delete = function(req, res) {
-  var station = req.station ;
+  var donnor = req.donnor ;
 
-  station.remove(function(err) {
+  donnor.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(station);
+      res.jsonp(donnor);
     }
   });
 };
 
 /**
- * List of Stations
+ * List of Donnors
  */
 exports.list = function(req, res) { 
-  Station.find().sort('-created').populate('user', 'displayName').exec(function(err, stations) {
+  Donnor.find().sort('-created').populate('user', 'displayName').exec(function(err, donnors) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(stations);
+      res.jsonp(donnors);
     }
   });
 };
 
 /**
- * Station middleware
+ * Donnor middleware
  */
-exports.stationByID = function(req, res, next, id) {
+exports.donnorByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Station is invalid'
+      message: 'Donnor is invalid'
     });
   }
 
-  Station.findById(id).populate('user', 'displayName').exec(function (err, station) {
+  Donnor.findById(id).populate('user', 'displayName').exec(function (err, donnor) {
     if (err) {
       return next(err);
-    } else if (!station) {
+    } else if (!donnor) {
       return res.status(404).send({
-        message: 'No Station with that identifier has been found'
+        message: 'No Donnor with that identifier has been found'
       });
     }
-    req.station = station;
+    req.donnor = donnor;
     next();
   });
 };

@@ -1,10 +1,86 @@
-<div class='panel'>
-					<input type="text" ng-model="station.zero_minus"/>
-          <input type="text" ng-model="station.zero_plus"/>
-          <input type="text" ng-model="station.A_minus"/>
-          <input type="text" ng-model="station.A_plus"/>
-          <input type="text" ng-model="station.B_minus"/>
-         	<input type="text" ng-model="station.B_plus"/>
-          <input type="text" ng-model="station.AB_minus"/>
-          <input type="text" ng-model="station.AB_plus"/>
-</div>
+
+<h2> Stan zapasów krwii</h2>
+
+ <form name="vm.form.bloodSuplies" class="form-inline" ng-submit="vm.save(vm.form.bloodSuplies.$valid)" novalidate>
+   	<fieldset>
+   	
+  <div class='row'>
+	<div class="form-group col-sm-2" show-errors>
+		<label class="control-label" for="A_minus">A Rh-</label>
+		<input name='A_minus' class="form-control blood-input" type="number" ng-model="vm.station.A_minus" min='0.0'></input>
+    	<div ng-show="vm.error" class="text-danger">
+    		<strong ng-bind="vm.error"></strong>
+    	</div>
+  </div>
+     
+  <div class="form-group col-sm-2" show-errors>
+		<label class="control-label" for="A_plus">A Rh+</label>
+		<input name='A_plus' class="form-control blood-input" type="number" ng-model="vm.station.A_plus" min='0.0'></input>
+		
+    		<div ng-show="vm.error" class="text-danger">
+      		<strong ng-bind="vm.error"></strong>
+    		</div>
+  </div>
+  </div>
+  <div class='row'>
+    <div class="form-group col-sm-2" show-errors>
+      <label class="control-label" for="B_minus">B Rh-</label>
+      <input name='B_minus' class="form-control blood-input" type="number" ng-model="vm.station.B_minus" min='0.0'></input>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+    </div>
+     
+    <div class="form-group col-sm-2" show-errors>
+      <label class="control-label" for="B_plus">B Rh+</label>
+      <input name='B_plus' class="form-control blood-input" type="number" ng-model="vm.station.B_plus" min='0.0'></input>
+      
+         <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="form-group col-sm-2" show-errors>
+      <label class="control-label" for="AB_minus">AB Rh-</label>
+      <input name='AB_minus' class="form-control blood-input" type="number" ng-model="vm.station.AB_minus" min='0.0'></input>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+    </div>
+     
+    <div class="form-group col-sm-2" show-errors>
+      <label class="control-label" for="AB_plus">AB Rh+</label>
+      <input name='AB_plus' class="form-control blood-input" type="number" ng-model="vm.station.AB_plus" min='0.0'></input>
+      
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="form-group col-sm-2" show-errors>
+      <label class="control-label" for="zero_minus">0 Rh-</label>
+      <input name='zero_minus' class="form-control blood-input" type="number" ng-model="vm.station.zero_minus" min='0.0'></input>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+    </div>
+     
+    <div class="form-group col-sm-2" show-errors>
+      <label class="control-label" for="zero_plus">0 Rh+</label>
+      <input name='zero_plus' class="form-control blood-input" type="number" ng-model="vm.station.zero_plus" min='0.0'></input>
+      
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+    </div>
+  </div>  
+  <button class="btn btn-primary ng-binding"  type="submit">
+          <i class="glyphicon glyphicon-floppy-disk"></i>
+          Zapisz
+    </button>
+  </fieldset>
+</form> 
+       
+         

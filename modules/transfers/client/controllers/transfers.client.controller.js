@@ -6,18 +6,25 @@
     .module('transfers')
     .controller('TransfersController', TransfersController);
 
-  TransfersController.$inject = ['$scope', '$state', 'Authentication', 'transferResolve', 'destination'];
+  TransfersController.$inject = ['$scope', '$state','$stateParams', 'Authentication', 'transferResolve'];
 
-  function TransfersController ($scope, $state, Authentication, transfer,  destination) {
+  function TransfersController ($scope, $state,$stateParams, Authentication, transfer) {
     var vm = this;
-
     vm.authentication = Authentication;
     vm.transfer = transfer;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-    vm.types = ["0+","0-","A+","A-","B+","B-","AB+","AB-"];
+    vm.source = $stateParams.source;
+    vm.types = [{name:"0-",value:"zero_minus"},
+    {name:"0-",value:'zero_minus'},
+    {name:"A+",value:'A_plus'},
+    {name:"A-",value: 'A_minus'},
+    {name:"B+",value:"B_plus"},
+    {name:"B-",value:"B_minus"},
+    {name:"AB+",value:"AB_plus"},
+    {name:"AB-",value:"AB_minus"}];
 
     // Remove existing Transfer
     function remove() {
@@ -28,7 +35,6 @@
 
     // Save Transfer
     function save(isValid) {
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.transferForm');
         return false;
@@ -36,7 +42,7 @@
 
       // TODO: move create/update logic to service
       vm.transfer.destination = user.station;
-      vm.transfer.source = source;
+      vm.transfer.source = vm.source;
       if (vm.transfer._id) {
         vm.transfer.$update(successCallback, errorCallback);
       } else {

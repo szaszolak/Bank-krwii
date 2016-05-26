@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Transfers</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="transfer in vm.transfers"
+       data-ui-sref="transfers.view({ transferId: transfer._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="transfer.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="transfer.user" data-ng-bind="transfer.user.displayName"></span>
+        <span data-ng-if="!transfer.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="transfer.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.transfers.$resolved && !vm.transfers.length">
+    No Transfers yet, why don't you <a data-ui-sref="transfers.create">create one</a>?
+  </div>
+</section>

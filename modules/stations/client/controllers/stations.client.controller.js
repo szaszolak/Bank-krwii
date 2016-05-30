@@ -6,21 +6,62 @@
     .module('stations')
     .controller('StationsController', StationsController);
 
-  StationsController.$inject = ['$scope', '$state', 'Authentication', 'stationResolve'];
+  StationsController.$inject = ['$scope','$http', '$state','$resource', 'Authentication','Users', 'stationResolve'];
 
-  function StationsController ($scope, $state, Authentication, station) {
+  function StationsController ($scope, $http, $state, $resource, Authentication, Users, station) {
     var vm = this;
     vm.authentication = Authentication;
-    user = Authentication.user;
+    vm.user = Authentication.user;
     vm.station = station;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.addUserEnabled = false;
+    vm.toggleAddUser = toggleAddUser;
+    vm.addEmployee = addEmployee;
+    vm.employess = Users.query({station: station._id});
+    vm.removeEmployee = removeEmployee;
 
-    vm.isManager = user.roles.includes("manager") && user.station === station._id;
-    vm.isAuthorizedToRequestTransfer = user.roles.includes("manager") && !(user.station === station._id);
+    vm.isManager = vm.user.roles.includes("manager") && vm.user.station === station._id;
+    vm.isAuthorizedToRequestTransfer = vm.user.roles.includes("manager") && !(vm.user.station === station._id);
 
+    function toggleAddUser(){
+      vm.addUserEnabled= !vm.addUserEnabled;
+    }
+
+    
+
+    function addEmployee (isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'userForm');
+        return false;
+      }
+
+      vm.credentials.station = vm.station;
+
+      $http.post('/api/auth/signup', vm.credentials).success(function (response) {
+        vm.employess.push(response);
+        vm.credentials = {};
+        vm.toggleAddUser();
+      }).error(function (response) {
+        vm.error = response.message;
+      });
+    };
+
+    function removeEmployee (employee) {
+      if (confirm('Czy na pewno chcesz usunąć tego pracownika?')) {
+        if (employee) {
+            var emp = $resource('api/users/:userId', {userId:'@id'});
+             emp.remove({userId: employee._id})
+              .$promise.then(function(employee) {
+                  vm.employess = Users.query({station: station._id});
+                });
+          } else {
+          
+        }
+      }
+    };
     // Remove existing Station
     function remove() {
       if (confirm('Are you sure you want to delete?')) {

@@ -16,5 +16,31 @@
   </div>
  
   <p class="lead" data-ng-bind="vm.station.addres"></p>
-  <blood-suplies ng-show="vm.isManager"></blood-suplies>
+  <div id='manage_station' ng-show="vm.isManager">
+   <blood-suplies ></blood-suplies>
+   <table class='table'>
+     <thead>
+       <tr>
+         <td>Imię</td>
+         <td>Nazwizko</td>
+         <td>E-mail</td>
+         <td>Usuń</td>
+       </tr>
+     </thead>
+     <tbody>
+       <tr ng-repeat="employee in vm.employess">
+        <td ng-bind="employee.firstName"></td>
+        <td ng-bind="employee.lastName"></td>
+        <td ng-bind="employee.email"></td>
+        <td>  
+          <a class="btn btn-primary" ng-click="vm.removeEmployee(employee);" ng-if="employee._id !== vm.authentication.user._id">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+      </tr>
+     </tbody>
+   </table>
+   <button ng-click="vm.toggleAddUser()" class="btn btn-default">{{vm.addUserEnabled?'Ukryj':'Dodaj Pracownika'}}</button>
+      <div ng-include="'/modules/stations/client/views/station-employee-form.client.view.html'" ng-show='vm.addUserEnabled'></div>
+
+  </div>
 </section>

@@ -6,9 +6,9 @@
     .module('stations')
     .controller('StationsController', StationsController);
 
-  StationsController.$inject = ['$scope', '$state', 'Authentication', 'stationResolve'];
+  StationsController.$inject = ['$scope','$http', '$state', 'Authentication','Users', 'stationResolve'];
 
-  function StationsController ($scope, $state, Authentication, station) {
+  function StationsController ($scope, $http, $state, Authentication, Users, station) {
     var vm = this;
     vm.authentication = Authentication;
     vm.user = Authentication.user;
@@ -17,9 +17,34 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.addUserEnabled = false;
+    vm.toggleAddUser = toggleAddUser;
+    vm.addEmployee = addEmployee;
+    vm.employess = Users.query({station: station._id});
 
     vm.isManager = vm.user.roles.includes("manager") && vm.user.station === station._id;
     vm.isAuthorizedToRequestTransfer = vm.user.roles.includes("manager") && !(vm.user.station === station._id);
+
+    function toggleAddUser(){
+      vm.addUserEnabled= !vm.addUserEnabled;
+    }
+
+    
+
+    function addEmployee (isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'userForm');
+        return false;
+      }
+
+      vm.credentials.station = vm.station;
+
+      $http.post('/api/auth/signup', vm.credentials).success(function (response) {
+        vm.employess =  Users.query({station: station._id});
+      }).error(function (response) {
+        vm.error = response.message;
+      });
+    };
 
     // Remove existing Station
     function remove() {

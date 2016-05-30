@@ -33,7 +33,7 @@
         <td ng-bind="employee.lastName"></td>
         <td ng-bind="employee.email"></td>
         <td>  
-          <a class="btn btn-primary" ng-click="remove();" ng-if="employee._id !== authentication.user._id">
+          <a class="btn btn-primary" ng-click="vm.removeEmployee(employee);" ng-if="employee._id !== vm.authentication.user._id">
             <i class="glyphicon glyphicon-trash"></i>
           </a>
       </tr>

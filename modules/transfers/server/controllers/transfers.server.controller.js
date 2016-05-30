@@ -22,7 +22,55 @@ exports.create = function(req, res) {
   var sourceStation = Station.findById(transfer.source);
   var destinationStation = Station.findById(transfer.destination);
 
-  switch(transfer.bloodType){
+  transfer.state = "New";
+
+  transfer.save(function(err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(transfer);
+    }
+  });
+};
+
+/**
+ * Show the current Transfer
+ */
+exports.read = function(req, res) {
+  // convert mongoose document to JSON
+  var transfer = req.transfer ? req.transfer.toJSON() : {};
+
+  // Add a custom field to the Article, for determining if the current User is the "owner".
+  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
+  transfer.isCurrentUserOwner = req.user && transfer.user && transfer.user._id.toString() === req.user._id.toString() ? true : false;
+
+  var transfers = [];
+
+  Transfer.find({state: 'New'}, function(error, users){
+    if(error){
+
+    }else{
+      transfers = users;
+      console.log(transfers);
+    }
+    
+  });
+
+  res.jsonp(transfer);
+};
+
+/**
+ * Update a Transfer
+ */
+exports.update = function(req, res) {
+  var transfer = req.transfer ;
+
+  transfer = _.extend(transfer , req.body);
+
+
+  /*switch(transfer.bloodType){
     case 'zero_minus':
       if(sourceStation.zero_minus > transfer.amount){
 
@@ -83,40 +131,7 @@ exports.create = function(req, res) {
       return res.status(400).send({
           message: "Unknown blood type"
         });
-  }
-
-  transfer.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(transfer);
-    }
-  });
-};
-
-/**
- * Show the current Transfer
- */
-exports.read = function(req, res) {
-  // convert mongoose document to JSON
-  var transfer = req.transfer ? req.transfer.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  transfer.isCurrentUserOwner = req.user && transfer.user && transfer.user._id.toString() === req.user._id.toString() ? true : false;
-
-  res.jsonp(transfer);
-};
-
-/**
- * Update a Transfer
- */
-exports.update = function(req, res) {
-  var transfer = req.transfer ;
-
-  transfer = _.extend(transfer , req.body);
+  }*/
 
   transfer.save(function(err) {
     if (err) {
@@ -150,7 +165,7 @@ exports.delete = function(req, res) {
  * List of Transfers
  */
 exports.list = function(req, res) { 
-  Transfer.find().sort('-created').populate('user', 'displayName').exec(function(err, transfers) {
+  Transfer.find({ state: "New" }).sort('-created').populate('user', 'displayName').exec(function(err, transfers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

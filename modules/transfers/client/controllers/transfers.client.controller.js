@@ -6,9 +6,9 @@
     .module('transfers')
     .controller('TransfersController', TransfersController);
 
-  TransfersController.$inject = ['$scope', '$state','$stateParams', 'Authentication', 'transferResolve'];
+  TransfersController.$inject = ['$scope', '$state','$stateParams','BlodTypeResolverService', 'Authentication', 'transferResolve'];
 
-  function TransfersController ($scope, $state,$stateParams, Authentication, transfer) {
+  function TransfersController ($scope, $state,$stateParams,BlodTypeResolverService, Authentication, transfer) {
     var vm = this;
     vm.authentication = Authentication;
     vm.transfer = transfer;
@@ -20,6 +20,7 @@
     vm.acceptTransfer = acceptTransfer;
     vm.rejectTransfer = rejectTransfer;
     vm.outbox = vm.transfer.destination == Authentication.user.station;
+    vm.getBloodTypeName = function(type){return BlodTypeResolverService.resolve_name(type);};
 
     vm.types = [{name:"0-",value:"zero_minus"},
     {name:"0+",value:'zero_plus'},
@@ -33,7 +34,7 @@
     // Remove existing Transfer
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.transfer.$remove($state.go('transfers.list'));
+        vm.transfer.$remove(succesTransferCallback, errorCallback);
       }
     }
 

@@ -19,10 +19,10 @@
     vm.source = $stateParams.source;
     vm.acceptTransfer = acceptTransfer;
     vm.rejectTransfer = rejectTransfer;
-    vm.inbox = vm.transfer.source == user.station;
-    debugger;
+    vm.outbox = vm.transfer.destination == user.station;
+
     vm.types = [{name:"0-",value:"zero_minus"},
-    {name:"0-",value:'zero_minus'},
+    {name:"0+",value:'zero_plus'},
     {name:"A+",value:'A_plus'},
     {name:"A-",value: 'A_minus'},
     {name:"B+",value:"B_plus"},

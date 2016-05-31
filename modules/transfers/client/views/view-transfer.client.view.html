@@ -11,14 +11,12 @@
       <i class="glyphicon glyphicon-remove"></i>
     </button>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span data-ng-bind="vm.transfer.created | date:'mediumDate'"></span>
-      by
-      <span data-ng-if="vm.transfer.destination"
-            data-ng-bind="vm.transfer.destination.name"></span>
-    </em>
-  </small>
-  <p class="lead" data-ng-bind="vm.transfer.content"></p>
+      <h2>Typ: {{vm.getBloodTypeName(vm.transfer.bloodType)}} <p class="pull-right {{vm.transfer.state}}">{{vm.transfer.state}}</p></h2>
+      <h3>{{vm.transfer.amount}}l</h3>
+      <button class="btn btn-danger" ng-click="vm.remove()">Usuń</button>
+      </br>
+      <small class="list-group-item-text">
+        Wysłany
+        <span data-ng-bind="vm.transfer.created | date:'mediumDate'"></span>
+      </small>
 </section>

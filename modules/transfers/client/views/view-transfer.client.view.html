@@ -12,8 +12,11 @@
     </button>
   </div>
       <h2>Typ: {{vm.getBloodTypeName(vm.transfer.bloodType)}} <p class="pull-right {{vm.transfer.state}}">{{vm.transfer.state}}</p></h2>
-      <h3>{{vm.transfer.amount}}l</h3>
-      <button class="btn btn-danger" ng-click="vm.remove()">Usuń</button>
+      <h3>{{vm.transfer.amount}}l
+      <button class="btn btn-danger pull-right" ng-click="vm.remove()"> 
+        <i class="glyphicon glyphicon-trash"></i>
+      </button>
+      </h3>
       </br>
       <small class="list-group-item-text">
         Wysłany

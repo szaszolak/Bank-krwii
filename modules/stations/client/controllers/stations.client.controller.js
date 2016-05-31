@@ -22,7 +22,7 @@
     vm.addEmployee = addEmployee;
     vm.employess = Users.query({station: station._id});
     vm.removeEmployee = removeEmployee;
-
+    debugger;
     vm.isManager = vm.user.roles.includes("manager") && vm.user.station === station._id;
     vm.isAuthorizedToRequestTransfer = vm.user.roles.includes("manager") && !(vm.user.station === station._id);
 

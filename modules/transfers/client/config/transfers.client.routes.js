@@ -32,7 +32,7 @@
           transferResolve: newTransfer
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['manager', 'admin'],
           pageTitle : 'Transfers Create'
         }
       })
@@ -45,7 +45,7 @@
           transferResolve: getTransfer
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['manager', 'admin'],
           pageTitle: 'Edit Transfer {{ transferResolve.name }}'
         }
       })

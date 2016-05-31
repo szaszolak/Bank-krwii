@@ -5,11 +5,14 @@
     .module('transfers')
     .controller('TransfersListController', TransfersListController);
 
-  TransfersListController.$inject = ['TransfersService','Authentication'];
+  TransfersListController.$inject = ['TransfersService','BlodTypeResolverService','Authentication'];
 
-  function TransfersListController(TransfersService,Authentication) {
+  function TransfersListController(TransfersService,BlodTypeResolverService,Authentication) {
     var vm = this;
 
-    vm.transfers = TransfersService.query({stationId: Authentication.user.station._id,state: 'pending'});
+    vm.getBloodTypeName = function(type){return BlodTypeResolverService.resolve_name(type);};
+    vm.transfers = TransfersService.query({stationId: Authentication.user.station._id,state: 'PENDING'});
+
+    
   }
 })();

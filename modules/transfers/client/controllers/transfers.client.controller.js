@@ -19,6 +19,7 @@
     vm.source = $stateParams.source;
     vm.acceptTransfer = acceptTransfer;
     vm.rejectTransfer = rejectTransfer;
+   
     vm.types = [{name:"0-",value:"zero_minus"},
     {name:"0-",value:'zero_minus'},
     {name:"A+",value:'A_plus'},
@@ -35,6 +36,8 @@
       }
     }
 
+  
+
     // Save Transfer
     function save(isValid) {
       if (!isValid) {
@@ -46,7 +49,7 @@
       vm.transfer.destination = user.station;
       vm.transfer.source = vm.source;
       vm.transfer.state = 'PENDING';
-      debugger;
+
       if (vm.transfer._id) {
         vm.transfer.$update(successCallback, errorCallback);
       } else {
@@ -59,15 +62,13 @@
         });
       }
 
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
+   
     }
 
     function acceptTransfer(){
       vm.transfer.state = 'ACCEPTED';
       if (vm.transfer._id) {
-        vm.transfer.$update(successCallback, errorCallback);
+        vm.transfer.$update(succesAcceptTransferCallback, errorCallback);
       }else{
       }
     }
@@ -77,6 +78,16 @@
         vm.transfer.$update(successCallback, errorCallback);
       }else{
       }
+    }
+
+    function succesAcceptTransferCallback(){
+       $state.go('transfers.list', {
+        });
+    }
+    
+    function errorCallback(res) {
+     alert('not ok');
+     vm.error = res.data.message;
     }
   }
 })();

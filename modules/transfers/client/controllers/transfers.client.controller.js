@@ -19,7 +19,7 @@
     vm.source = $stateParams.source;
     vm.acceptTransfer = acceptTransfer;
     vm.rejectTransfer = rejectTransfer;
-    vm.outbox = vm.transfer.destination == user.station;
+    vm.outbox = vm.transfer.destination == Authentication.user.station;
 
     vm.types = [{name:"0-",value:"zero_minus"},
     {name:"0+",value:'zero_plus'},
@@ -47,7 +47,7 @@
       }
 
       // TODO: move create/update logic to service
-      vm.transfer.destination = user.station;
+      vm.transfer.destination = Authentication.user.station;
       vm.transfer.source = vm.source;
       vm.transfer.state = 'PENDING';
 

@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  url = require('url'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -72,22 +73,12 @@ exports.list = function (req, res, station) {
 
   var users = [];
 
-  console.log("req.body");
-  console.log(req.body);
-  //console.log("req");
-  //console.log(req);
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
 
-  console.log("station");
-  console.log(station);
 
-  console.log("req.param");
-  console.log(req.param);
-
-  console.log("req.param['station']");
-  console.log(req.param['station']);
-
-  if(req.station) {
-      User.find({station: req.station}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+  if(query.station) {
+      User.find({station: query.station}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)

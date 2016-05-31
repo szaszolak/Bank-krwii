@@ -32,8 +32,8 @@ var TransferSchema = new Schema({
   },
   state: {
     type: String,
-    default: "New",
-    required: 'Please fill blood type',
+    default: "pending",
+    required: 'Please state',
     trim: true
   },
   created: {

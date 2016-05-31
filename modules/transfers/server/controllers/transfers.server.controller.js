@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Transfer = mongoose.model('Transfer'),
   Station = mongoose.model('Station'),
+  url = require('url'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -32,7 +33,7 @@ exports.create = function(req, res) {
 
   transfer.destination = mongoose.Types.ObjectId(req.body.destination);
 
-  transfer.state = "New";
+  transfer.state = req.body.state.toLowerCase();
 
   transfer.save(function(err) {
     if (err) {
@@ -58,7 +59,7 @@ exports.read = function(req, res) {
 
   var transfers = [];
 
-  Transfer.find({state: 'New'}, function(error, users){
+  Transfer.find({state: 'pending'}, function(error, users){
     if(error){
 
     }else{
@@ -175,12 +176,22 @@ exports.delete = function(req, res) {
  * List of Transfers
  */
 exports.list = function(req, res) { 
-  Transfer.find({ state: "New" }).sort('-created').populate('user', 'displayName').exec(function(err, transfers) {
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+  console.log("query");
+  console.log(query);
+  Transfer.find({ state: query.state.toLowerCase(), source: req.user.station }).sort('-created')
+  .populate('user', 'displayName')
+  .populate('source')
+  .populate('destination')
+  .exec(function(err, transfers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      console.log("result transfers");
+      console.log(transfers);
       res.jsonp(transfers);
     }
   });

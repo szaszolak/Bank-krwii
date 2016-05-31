@@ -94,7 +94,7 @@ exports.update = function(req, res) {
   transfer.state = oldStateValue;
 
   if(req.user.station.toString() == transfer.source.toString()){
-    transfer.state = transfer.state.toLowerCase();
+    transfer.state = req.body.state.toLowerCase();
   }
     
 

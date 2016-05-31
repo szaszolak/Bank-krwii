@@ -182,21 +182,41 @@ exports.list = function(req, res) {
   var query = url_parts.query;
   console.log("query");
   console.log(query);
-  Transfer.find({ state: query.state.toLowerCase(), source: req.user.station }).sort('-created')
-  .populate('user', 'displayName')
-  .populate('source')
-  .populate('destination')
-  .exec(function(err, transfers) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      console.log("result transfers");
-      console.log(transfers);
-      res.jsonp(transfers);
-    }
-  });
+
+  if(query.incoming == true){
+    Transfer.find({ state: 'pending', source: req.user.station }).sort('-created')
+      .populate('user', 'displayName')
+      .populate('source')
+      .populate('destination')
+      .exec(function(err, transfers) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          console.log("result transfers (incoming == true)");
+          console.log(transfers);
+          res.jsonp(transfers);
+        }
+    });
+  } else {
+    //Transfer.find({ state: query.state.toLowerCase(), source: req.user.station }).sort('-created')
+    Transfer.find({ $or: [{state: 'accepted'}, {state: 'rejected'}], destination: req.user.station }).sort('-created')
+      .populate('user', 'displayName')
+      .populate('source')
+      .populate('destination')
+      .exec(function(err, transfers) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          console.log("result transfers (incoming != true)");
+          console.log(transfers);
+          res.jsonp(transfers);
+        }
+    });
+  }
 };
 
 /**

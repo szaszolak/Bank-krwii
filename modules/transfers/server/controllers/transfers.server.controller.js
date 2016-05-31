@@ -23,9 +23,6 @@ exports.create = function(req, res) {
 
   transfer.bloodType = req.body.bloodType;
 
-  var sourceStation = {};
-  var destinationStation = {};
-
   console.log("req.body.source");
   console.log(req.body.source);
 
@@ -78,92 +75,128 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   var transfer = req.transfer ;
 
-  console.log("old transfer")
-  console.log(transfer);
-
   var oldStateValue = transfer.state;
 
   transfer = _.extend(transfer , req.body);
-
-  console.log("req.user.station")
-  console.log(req.user.station.toString());
-
-  console.log("transfer.source")
-  console.log(transfer.source.toString());
 
   transfer.state = oldStateValue;
 
   if(req.user.station.toString() == transfer.source.toString()){
     transfer.state = req.body.state.toLowerCase();
-  }
-    
+  } 
 
-  console.log("new transfer")
-  console.log(transfer);  
-
-
-  /*switch(transfer.bloodType){
-    case 'zero_minus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    case 'zero_plus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    case 'A_plus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    case 'A_minus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    case 'B_plus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    case 'B_minus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    case 'AB_plus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    case 'AB_minus':
-      if(sourceStation.zero_minus > transfer.amount){
-
-      }else{
-        //TODO: error - amount
-      }
-      break;
-    default:
-      return res.status(400).send({
-          message: "Unknown blood type"
+  if(transfer.state == 'accepted'){
+    Transfer.findById(transfer._id)
+    .populate('user', 'displayName')
+    .populate('source')
+    .populate('destination')
+    .exec(function (err, found) {
+      if (err) {
+        return res.status(404).send({
+          message: err
         });
-  }*/
+      } else if (!transfer) {
+        return res.status(404).send({
+          message: 'No Transfer with that identifier has been found'
+        });
+      }
+
+////
+      switch(transfer.bloodType){
+        case 'zero_minus':
+          if(found.source.zero_minus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.zero_minus -= transfer.amount;
+            found.destination.zero_minus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        case 'zero_plus':
+          if(found.source.zero_plus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.zero_plus -= transfer.amount;
+            found.destination.zero_plus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        case 'A_plus':
+          if(found.source.A_plus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.A_plus -= transfer.amount;
+            found.destination.A_plus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        case 'A_minus':
+          if(found.source.A_minus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.A_minus -= transfer.amount;
+            found.destination.A_minus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        case 'B_plus':
+          if(found.source.B_plus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.B_plus -= transfer.amount;
+            found.destination.B_plus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        case 'B_minus':
+          if(found.source.B_minus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.B_minus -= transfer.amount;
+            found.destination.B_minus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        case 'AB_plus':
+          if(found.source.AB_plus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.AB_plus -= transfer.amount;
+            found.destination.AB_plus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        case 'AB_minus':
+          if(found.source.AB_minus > -1 /*TODO: transfer.amount*/){
+            //TODO: decrement//found.source.AB_minus -= transfer.amount;
+            found.destination.AB_minus += transfer.amount;
+          }else{
+            console.log("ERROR: Incorrect transfer amount");
+          }
+          break;
+        default:
+          return res.status(400).send({
+              message: "Unknown blood type"
+            });
+      }
+////
+      found.source.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          //res.jsonp(transfer);
+          console.log("saved station SOURCE");
+          console.log(found.source);
+        }
+      });
+      found.destination.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          //res.jsonp(transfer);
+          console.log("saved station DESTINATION");
+          console.log(found.destination);
+        }
+      });
+    });
+  }
 
   transfer.save(function(err) {
     if (err) {

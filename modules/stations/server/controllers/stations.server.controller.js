@@ -37,7 +37,30 @@ exports.read = function(req, res) {
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   station.isCurrentUserOwner = req.user && station.user && station.user._id.toString() === req.user._id.toString() ? true : false;
-  
+  console.log("READ");
+
+  var totalAmount = 
+  station.zero_minus +
+  station.zero_plus + 
+  station.A_minus +
+  station.A_plus +
+  station.B_minus +
+  station.B_plus +
+  station.AB_minus +
+  station.AB_plus
+  ;
+
+  station.stats = [
+    {name: 'Razem', value: totalAmount},
+    {name: '0 Rh+', value: (totalAmount <= 0) ? 0 : station.zero_plus/totalAmount},
+    {name: '0 Rh-', value: (totalAmount <= 0) ? 0 : station.zero_minus/totalAmount},
+    {name: 'A Rh+', value: (totalAmount <= 0) ? 0 : station.A_plus/totalAmount},
+    {name: 'A Rh-', value: (totalAmount <= 0) ? 0 : station.A_minus/totalAmount},
+    {name: 'B Rh+', value: (totalAmount <= 0) ? 0 : station.B_plus/totalAmount},
+    {name: 'B Rh-', value: (totalAmount <= 0) ? 0 : station.B_minus/totalAmount},
+    {name: 'AB Rh+', value: (totalAmount <= 0) ? 0 : station.AB_plus/totalAmount},
+    {name: 'AB Rh+', value: (totalAmount <= 0) ? 0 : station.AB_minus/totalAmount}
+  ];
   res.jsonp(station);
 };
 

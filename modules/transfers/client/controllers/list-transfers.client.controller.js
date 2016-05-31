@@ -5,11 +5,11 @@
     .module('transfers')
     .controller('TransfersListController', TransfersListController);
 
-  TransfersListController.$inject = ['TransfersService'];
+  TransfersListController.$inject = ['TransfersService','Authentication'];
 
-  function TransfersListController(TransfersService) {
+  function TransfersListController(TransfersService,Authentication) {
     var vm = this;
 
-    vm.transfers = TransfersService.query();
+    vm.transfers = TransfersService.query({stationId: Authentication.user.station._id,state: 'pending'});
   }
 })();

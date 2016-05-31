@@ -10,23 +10,18 @@
   function menuConfig(Menus) {
     // Set top bar menu items
     Menus.addMenuItem('topbar', {
-      title: 'Transfers',
+      title: 'Komunikaty',
       state: 'transfers',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['manager']
     });
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'transfers', {
-      title: 'List Transfers',
-      state: 'transfers.list'
+      title: 'Skrzynka',
+      state: 'transfers.list',
+      roles: ['manager']
     });
 
-    // Add the dropdown create item
-    Menus.addSubMenuItem('topbar', 'transfers', {
-      title: 'Create Transfer',
-      state: 'transfers.create',
-      roles: ['user']
-    });
   }
 })();

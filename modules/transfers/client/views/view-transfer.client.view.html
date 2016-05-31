@@ -2,24 +2,22 @@
   <div class="page-header">
     <h1 data-ng-bind="vm.transfer.name"></h1>
   </div>
-  <div class="pull-right"
-       data-ng-show="vm.transfer.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       data-ui-sref="transfers.edit({ transferId: vm.transfer._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" data-ng-click="vm.remove()">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
+  <div class="pull-right">
+    <button class="btn btn-success"
+       ng-click="vm.acceptTransfer()">
+      <i class="glyphicon glyphicon-ok"></i>
+    </button>
+    <button class="btn btn-danger" data-ng-click="vm.rejectTransfer()">
+      <i class="glyphicon glyphicon-remove"></i>
+    </button>
   </div>
   <small>
     <em class="text-muted">
       Posted on
       <span data-ng-bind="vm.transfer.created | date:'mediumDate'"></span>
       by
-      <span data-ng-if="vm.transfer.user"
-            data-ng-bind="vm.transfer.user.displayName"></span>
-      <span data-ng-if="!vm.transfer.user">Deleted User</span>
+      <span data-ng-if="vm.transfer.destination"
+            data-ng-bind="vm.transfer.destination.name"></span>
     </em>
   </small>
   <p class="lead" data-ng-bind="vm.transfer.content"></p>

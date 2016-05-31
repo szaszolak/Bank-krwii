@@ -80,6 +80,8 @@ exports.update = function(req, res) {
 
   transfer = _.extend(transfer , req.body);
 
+  transfer.state = transfer.state.toLowerCase();
+
 
   /*switch(transfer.bloodType){
     case 'zero_minus':

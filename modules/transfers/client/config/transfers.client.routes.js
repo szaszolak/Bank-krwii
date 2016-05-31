@@ -14,23 +14,22 @@
         url: '/transfers',
         template: '<ui-view/>'
       })
-      .state('transfers.list', {
-        url: '/inbox',
-        abstract: true,
+      .state('transfers.incoming', {
+        url: '/incoming',
+        templateUrl: 'modules/transfers/client/views/list-transfers.client.view.html',
         controller: 'TransfersListController',
         controllerAs: 'vm',
-        templateUrl: 'modules/transfers/client/views/list-transfers.client.view.html',
-      })
-      .state('transfers.list.incoming', {
-        url: '/incoming',
         data: {
-          pageTitle: 'Komunikaty odebrane'
+          pageTitle: 'Transfers List'
         }
       })
-      .state('transfers.list.outcoming', {
+      .state('transfers.outcoming', {
         url: '/outcoming',
+        templateUrl: 'modules/transfers/client/views/list-transfers.client.view.html',
+        controller: 'TransfersListController',
+        controllerAs: 'vm',
         data: {
-          pageTitle: 'Komunikaty wysłane'
+          pageTitle: 'Transfers List'
         }
       })
       .state('transfers.create', {

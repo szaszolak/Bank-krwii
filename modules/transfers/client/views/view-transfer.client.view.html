@@ -2,7 +2,7 @@
   <div class="page-header">
     <h1 data-ng-bind="vm.transfer.name"></h1>
   </div>
-  <div class="pull-right">
+  <div ng-if="!vm.inbox" class="pull-right" >
     <button class="btn btn-success"
        ng-click="vm.acceptTransfer()">
       <i class="glyphicon glyphicon-ok"></i>

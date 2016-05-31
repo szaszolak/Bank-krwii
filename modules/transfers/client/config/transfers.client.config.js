@@ -11,21 +11,21 @@
     // Set top bar menu items
     Menus.addMenuItem('topbar', {
       title: 'Komunikaty',
-      state: 'transfers.list',
+      state: 'transfers',
       type: 'dropdown',
       roles: ['manager']
     });
 
     // Add the dropdown list item
-    Menus.addSubMenuItem('topbar', 'transfers.list', {
+    Menus.addSubMenuItem('topbar', 'transfers', {
       title: 'Wysłane',
-      state: 'transfers.list.outcoming',
+      state: 'transfers.outcoming',
       roles: ['manager']
     });
     // Add the dropdown list item
-    Menus.addSubMenuItem('topbar', 'transfers.list', {
+    Menus.addSubMenuItem('topbar', 'transfers', {
       title: 'Odebrane',
-      state: 'transfers.list.incoming',
+      state: 'transfers.incoming',
       roles: ['manager']
     });
 

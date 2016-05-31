@@ -19,7 +19,8 @@
     vm.source = $stateParams.source;
     vm.acceptTransfer = acceptTransfer;
     vm.rejectTransfer = rejectTransfer;
-   
+    vm.inbox = vm.transfer.source == user.station;
+    debugger;
     vm.types = [{name:"0-",value:"zero_minus"},
     {name:"0-",value:'zero_minus'},
     {name:"A+",value:'A_plus'},
@@ -81,8 +82,7 @@
     }
 
     function succesTransferCallback(){
-       $state.go('transfers.list', {
-        });
+       $state.go($state.previous.state.name,{});
     }
     
     function errorCallback(res) {

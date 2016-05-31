@@ -17,10 +17,20 @@ exports.create = function(req, res) {
   var transfer = new Transfer(req.body);
   transfer.user = req.user;
 
-  transfer.bloodType = req.bloodType;
+  console.log("req.body");
+  console.log(req.body);
 
-  var sourceStation = Station.findById(transfer.source);
-  var destinationStation = Station.findById(transfer.destination);
+  transfer.bloodType = req.body.bloodType;
+
+  var sourceStation = {};
+  var destinationStation = {};
+
+  console.log("req.body.source");
+  console.log(req.body.source);
+
+  transfer.source = mongoose.Types.ObjectId(req.body.source);
+
+  transfer.destination = mongoose.Types.ObjectId(req.body.destination);
 
   transfer.state = "New";
 

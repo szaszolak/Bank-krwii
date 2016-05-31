@@ -68,9 +68,23 @@ exports.delete = function (req, res) {
 /**
  * List of Users
  */
-exports.list = function (req, res) {
+exports.list = function (req, res, station) {
 
   var users = [];
+
+  console.log("req.body");
+  console.log(req.body);
+  //console.log("req");
+  //console.log(req);
+
+  console.log("station");
+  console.log(station);
+
+  console.log("req.param");
+  console.log(req.param);
+
+  console.log("req.param['station']");
+  console.log(req.param['station']);
 
   if(req.station) {
       User.find({station: req.station}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {

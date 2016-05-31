@@ -10,17 +10,13 @@ var mongoose = require('mongoose'),
  * Transfer Schema
  */
 var TransferSchema = new Schema({
-  source: {
-    type: Number,
-    default: 0,
-    required: 'Please fill Bloodtransfer source',
-    trim: true
-  },
   destination: {
-    type: Number,
-    default: 0,
-    required: 'Please fill Bloodtransfer destination',
-    trim: true
+    type: Schema.ObjectId,
+    ref: 'Station'
+  },
+  source: {
+    type: Schema.ObjectId,
+    ref: 'Station'
   },
   amount: {
     type: Number,
@@ -30,7 +26,7 @@ var TransferSchema = new Schema({
   },
   bloodType: {
     type: String,
-    default: 0,
+    default: "empty",
     required: 'Please fill blood type',
     trim: true
   },

@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Donnor = mongoose.model('Donnor'),
+  url = require('url'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -81,15 +82,39 @@ exports.delete = function(req, res) {
  * List of Donnors
  */
 exports.list = function(req, res) { 
-  Donnor.find().sort('-created').populate('user', 'displayName').exec(function(err, donnors) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(donnors);
-    }
-  });
+
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+
+  console.log("query");
+  console.log(query);
+
+  if(query.honorable == 'true'){
+    Donnor.find({x: 'x'}).sort('-created').populate('user', 'displayName').exec(function(err, donnors) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        console.log("db result donnors (honorable=true)");
+        console.log(donnors);
+        //TODO: wyfiltrować honorowych dawców
+        res.jsonp(donnors);
+      }
+    });
+  }else{
+    Donnor.find().sort('-created').populate('user', 'displayName').exec(function(err, donnors) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        console.log("db result donnors (honorable=false)");
+        console.log(donnors);
+        res.jsonp(donnors);
+      }
+    });
+  }
 };
 
 /**

@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Blooddonation = mongoose.model('Blooddonation'),
+  Donnor = mongoose.model('Donnor'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -15,8 +16,11 @@ var path = require('path'),
 exports.create = function(req, res) {
   var blooddonation = new Blooddonation(req.body);
   blooddonation.user = req.user;
-  blooddonation.donnor = mongoose.Types.ObjectId(req.body.donnor._id);
-    
+
+  if(req.body.donnor){
+    var donnor = JSON.parse(req.body.donnor);
+    blooddonation.donnor = mongoose.Types.ObjectId(donnor._id);
+  }    
   console.log("req.user");
   console.log(req.user);
   var station = blooddonation.user.station;//id
@@ -86,12 +90,13 @@ exports.delete = function(req, res) {
  * List of Blooddonations
  */
 exports.list = function(req, res) { 
-  Blooddonation.find().sort('-created').populate('user', 'displayName').exec(function(err, blooddonations) {
+  Blooddonation.find().sort('-created').populate('user', 'displayName').populate('donnor').exec(function(err, blooddonations) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+
       res.jsonp(blooddonations);
     }
   });

@@ -45,7 +45,7 @@
           stationResolve: getStation
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['manager', 'admin'],
           pageTitle: 'Edit Station {{ stationResolve.name }}'
         }
       })

@@ -34,3 +34,13 @@
   min-height: 150px;
   max-height: 150px;
 }
+
+.row-margin-xl {
+    margin-top: 150px;
+}
+.row-margin-l {
+    margin-top: 50px;
+}
+.row-margin-s {
+    margin-top: 25px;
+}

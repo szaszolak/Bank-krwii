@@ -5,11 +5,11 @@
     .module('donnors')
     .controller('DonnorsListController', DonnorsListController);
 
-  DonnorsListController.$inject = ['DonnorsService'];
+  DonnorsListController.$inject = ['$state','DonnorsService'];
 
-  function DonnorsListController(DonnorsService) {
+  function DonnorsListController($state,DonnorsService) {
     var vm = this;
-
-    vm.donnors = DonnorsService.query();
+    vm.donnors = DonnorsService.query({honorable:$state.$current.name=="donnors.honorable.list"});
+    //vm.honorable_donnors = DonnorsService.query({honorable:true});
   }
 })();

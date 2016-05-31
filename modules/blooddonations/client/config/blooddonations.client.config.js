@@ -13,20 +13,21 @@
       title: 'Donacje krwii',
       state: 'blooddonations',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['employee','manager']
     });
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'blooddonations', {
       title: 'Lista',
-      state: 'blooddonations.list'
+      state: 'blooddonations.list',
+      roles: ['employee','manager']
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'blooddonations', {
       title: 'Dodaj',
       state: 'blooddonations.create',
-      roles: ['user']
+      roles: ['employee','manager']
     });
   }
 })();

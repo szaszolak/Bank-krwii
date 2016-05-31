@@ -17,13 +17,14 @@
     });
 
     // Add the dropdown list item
-    Menus.addSubMenuItem('topbar', 'stations', {
+    Menus.addSubMenuItem('topbar', 'stations',  {
       title: 'Przeglądaj',
-      state: 'stations.list'
+      state: 'stations.list',
+      roles: ['employee','manager','admin']
     });
 
     // Add the dropdown create item
-    Menus.addSubMenuItem('topbar', 'stations', {
+    Menus.addSubMenuItem('topbar', 'stations',{
       title: 'Dodaj',
       state: 'stations.create',
       roles: ['admin']

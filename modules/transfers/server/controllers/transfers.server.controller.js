@@ -78,9 +78,28 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   var transfer = req.transfer ;
 
+  console.log("old transfer")
+  console.log(transfer);
+
+  var oldStateValue = transfer.state;
+
   transfer = _.extend(transfer , req.body);
 
-  transfer.state = transfer.state.toLowerCase();
+  console.log("req.user.station")
+  console.log(req.user.station.toString());
+
+  console.log("transfer.source")
+  console.log(transfer.source.toString());
+
+  transfer.state = oldStateValue;
+
+  if(req.user.station.toString() == transfer.source.toString()){
+    transfer.state = transfer.state.toLowerCase();
+  }
+    
+
+  console.log("new transfer")
+  console.log(transfer);  
 
 
   /*switch(transfer.bloodType){
@@ -183,7 +202,7 @@ exports.list = function(req, res) {
   console.log("query");
   console.log(query);
 
-  if(query.incoming == true){
+  if(query.incoming == 'true'){
     Transfer.find({ state: 'pending', source: req.user.station }).sort('-created')
       .populate('user', 'displayName')
       .populate('source')
@@ -201,7 +220,7 @@ exports.list = function(req, res) {
     });
   } else {
     //Transfer.find({ state: query.state.toLowerCase(), source: req.user.station }).sort('-created')
-    Transfer.find({ $or: [{state: 'accepted'}, {state: 'rejected'}], destination: req.user.station }).sort('-created')
+    Transfer.find({destination: req.user.station }).sort('-created')
       .populate('user', 'displayName')
       .populate('source')
       .populate('destination')

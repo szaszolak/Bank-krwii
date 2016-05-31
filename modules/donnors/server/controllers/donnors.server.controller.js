@@ -6,9 +6,12 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Donnor = mongoose.model('Donnor'),
+  Blooddonation = mongoose.model('Blooddonation'),
   url = require('url'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
+
+var honorableAmout = 2.5;
 
 /**
  * Create a Donnor
@@ -89,32 +92,76 @@ exports.list = function(req, res) {
   console.log("query");
   console.log(query);
 
-  if(query.honorable == 'true'){
-    Donnor.find({x: 'x'}).sort('-created').populate('user', 'displayName').exec(function(err, donnors) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        console.log("db result donnors (honorable=true)");
-        console.log(donnors);
-        //TODO: wyfiltrować honorowych dawców
-        res.jsonp(donnors);
-      }
-    });
-  }else{
-    Donnor.find().sort('-created').populate('user', 'displayName').exec(function(err, donnors) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        console.log("db result donnors (honorable=false)");
-        console.log(donnors);
-        res.jsonp(donnors);
-      }
-    });
-  }
+
+  Blooddonation.find().sort('-created').populate('donnor').exec(function(err, blooddonations) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+
+      Donnor.find().sort('-created').populate('user', 'displayName').exec(function(err1, donnors) {
+          if (err1) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            var allDonnors = [];
+
+            console.log("donnors.length");
+            console.log(donnors.length);
+
+            for (var i = 0; i < donnors.length; i++) {
+              
+              var donnorDonations = blooddonations.filter(function(element){
+                return element.donnor._id.toString() == donnors[i]._id.toString(); 
+              });
+
+              console.log("donnorDonations.length");
+              console.log(donnorDonations.length);
+
+              var sum = 0;
+              for (var j = 0; j < donnorDonations.length; j++) {
+                sum += donnorDonations[j].amount;
+              };
+
+              donnors[i].amount = sum;
+
+              allDonnors.push(donnors[i]);
+            };
+
+            allDonnors = allDonnors.map(function(element){
+              return {
+                __v: element.__v,
+                _id: element._id,
+                blood_type: element.blood_type,
+                created: element.created,
+                name: element.name,
+                pesel: element.pesel,
+                surname: element.surname,
+                amount: element.amount
+              };
+            });
+
+            var honorableDonnorsArray = allDonnors.filter(function(element){
+              return element.amount >= honorableAmout;
+            });
+
+            if(query.honorable == 'true'){
+              console.log("honorableDonnorsArray");
+              console.log(honorableDonnorsArray);
+              res.jsonp(honorableDonnorsArray);
+            } else {
+              console.log("allDonnors");
+              console.log(allDonnors);
+              res.jsonp(allDonnors);
+            }
+
+          }
+        }
+      );     
+    }
+  });
 };
 
 /**

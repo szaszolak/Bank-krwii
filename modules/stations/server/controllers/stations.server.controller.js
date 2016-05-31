@@ -93,6 +93,20 @@ exports.list = function(req, res) {
   });
 };
 
+exports.stationStats = function(req, res) {
+  var station = req.station ;
+  console.log(req.body);
+  Station.find().sort('-created').populate('user', 'displayName').exec(function(err, stations) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp("Some Station stats");
+    }
+  });
+};
+
 /**
  * Station middleware
  */

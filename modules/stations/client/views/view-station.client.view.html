@@ -16,7 +16,7 @@
   </div>
  
   <p class="lead" data-ng-bind="vm.station.addres"></p>
-  <div class='row'>
+  <div class='row' ng-if="vm.station.stats">
     <div class='col-md-1' ng-repet="blood_perc in vm.station.stats">
       {{blood_perc.name}}: {{blood_perc.value}}%
     </div>

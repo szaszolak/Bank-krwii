@@ -19,14 +19,21 @@
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'donnors', {
       title: 'Lista',
-      state: 'donnors.list'
+      state: 'donnors.list',
+      roles: ['empolyee','manager','admin']
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'donnors', {
       title: 'Dodaj',
       state: 'donnors.create',
-      roles: ['user']
+      roles: ['empolyee','manager','admin']
+    });
+        // Add the dropdown create item
+    Menus.addSubMenuItem('topbar', 'donnors', {
+      title: 'Honorowi dawcy',
+      state: 'donnors.honorable.list',
+      roles: ['*']
     });
   }
 })();

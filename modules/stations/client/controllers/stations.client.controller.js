@@ -39,6 +39,7 @@
       }
 
       vm.credentials.station = vm.station;
+      vm.credentials.roles = ['user','employee'];
 
       $http.post('/api/auth/signup', vm.credentials).success(function (response) {
         vm.employess.push(response);

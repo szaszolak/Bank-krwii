@@ -45,7 +45,8 @@
       // TODO: move create/update logic to service
       vm.transfer.destination = user.station;
       vm.transfer.source = vm.source;
-      vm.transfer.state = 'pending';
+      vm.transfer.state = 'PENDING';
+      debugger;
       if (vm.transfer._id) {
         vm.transfer.$update(successCallback, errorCallback);
       } else {
@@ -64,14 +65,14 @@
     }
 
     function acceptTransfer(){
-      vm.transfer.state = 'accepted';
+      vm.transfer.state = 'ACCEPTED';
       if (vm.transfer._id) {
         vm.transfer.$update(successCallback, errorCallback);
       }else{
       }
     }
     function rejectTransfer(){
-      vm.transfer.state = 'rejected';
+      vm.transfer.state = 'REJECTED';
       if (vm.transfer._id) {
         vm.transfer.$update(successCallback, errorCallback);
       }else{

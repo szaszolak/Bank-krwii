@@ -113,3 +113,13 @@ a:hover .header-profile-image {
     background-image: none;
   }
 }
+
+.row-margin-xl {
+    margin-top: 150px;
+}
+.row-margin-l {
+    margin-top: 50px;
+}
+.row-margin-s {
+    margin-top: 25px;
+}

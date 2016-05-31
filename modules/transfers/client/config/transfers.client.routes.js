@@ -15,12 +15,22 @@
         template: '<ui-view/>'
       })
       .state('transfers.list', {
-        url: '',
-        templateUrl: 'modules/transfers/client/views/list-transfers.client.view.html',
+        url: '/inbox',
+        abstract: true,
         controller: 'TransfersListController',
         controllerAs: 'vm',
+        templateUrl: 'modules/transfers/client/views/list-transfers.client.view.html',
+      })
+      .state('transfers.list.incoming', {
+        url: '/incoming',
         data: {
-          pageTitle: 'Transfers List'
+          pageTitle: 'Komunikaty odebrane'
+        }
+      })
+      .state('transfers.list.outcoming', {
+        url: '/outcoming',
+        data: {
+          pageTitle: 'Komunikaty wysłane'
         }
       })
       .state('transfers.create', {

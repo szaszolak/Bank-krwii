@@ -57,8 +57,8 @@
       }
 
       function successCallback(res) {
-        $state.go('transfers.view', {
-          transferId: res._id
+        $state.go('stations.view', {
+          stationId:  $stateParams.source
         });
       }
 
@@ -68,25 +68,24 @@
     function acceptTransfer(){
       vm.transfer.state = 'ACCEPTED';
       if (vm.transfer._id) {
-        vm.transfer.$update(succesAcceptTransferCallback, errorCallback);
+        vm.transfer.$update(succesTransferCallback, errorCallback);
       }else{
       }
     }
     function rejectTransfer(){
       vm.transfer.state = 'REJECTED';
       if (vm.transfer._id) {
-        vm.transfer.$update(successCallback, errorCallback);
+        vm.transfer.$update(succesTransferCallback, errorCallback);
       }else{
       }
     }
 
-    function succesAcceptTransferCallback(){
+    function succesTransferCallback(){
        $state.go('transfers.list', {
         });
     }
     
     function errorCallback(res) {
-     alert('not ok');
      vm.error = res.data.message;
     }
   }

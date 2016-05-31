@@ -19,7 +19,8 @@
     vm.source = $stateParams.source;
     vm.acceptTransfer = acceptTransfer;
     vm.rejectTransfer = rejectTransfer;
-   
+    vm.inbox = vm.transfer.source == user.station;
+    debugger;
     vm.types = [{name:"0-",value:"zero_minus"},
     {name:"0-",value:'zero_minus'},
     {name:"A+",value:'A_plus'},
@@ -57,8 +58,8 @@
       }
 
       function successCallback(res) {
-        $state.go('transfers.view', {
-          transferId: res._id
+        $state.go('stations.view', {
+          stationId:  $stateParams.source
         });
       }
 
@@ -68,25 +69,23 @@
     function acceptTransfer(){
       vm.transfer.state = 'ACCEPTED';
       if (vm.transfer._id) {
-        vm.transfer.$update(succesAcceptTransferCallback, errorCallback);
+        vm.transfer.$update(succesTransferCallback, errorCallback);
       }else{
       }
     }
     function rejectTransfer(){
       vm.transfer.state = 'REJECTED';
       if (vm.transfer._id) {
-        vm.transfer.$update(successCallback, errorCallback);
+        vm.transfer.$update(succesTransferCallback, errorCallback);
       }else{
       }
     }
 
-    function succesAcceptTransferCallback(){
-       $state.go('transfers.list', {
-        });
+    function succesTransferCallback(){
+       $state.go($state.previous.state.name,{});
     }
     
     function errorCallback(res) {
-     alert('not ok');
      vm.error = res.data.message;
     }
   }

@@ -18,10 +18,17 @@
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'transfers', {
-      title: 'Skrzynka',
-      state: 'transfers.list',
+      title: 'Wysłane',
+      state: 'transfers.outcoming',
       roles: ['manager']
     });
+    // Add the dropdown list item
+    Menus.addSubMenuItem('topbar', 'transfers', {
+      title: 'Odebrane',
+      state: 'transfers.incoming',
+      roles: ['manager']
+    });
+
 
   }
 })();

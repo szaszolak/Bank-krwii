@@ -14,8 +14,17 @@
         url: '/transfers',
         template: '<ui-view/>'
       })
-      .state('transfers.list', {
-        url: '',
+      .state('transfers.incoming', {
+        url: '/incoming',
+        templateUrl: 'modules/transfers/client/views/list-transfers.client.view.html',
+        controller: 'TransfersListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Transfers List'
+        }
+      })
+      .state('transfers.outcoming', {
+        url: '/outcoming',
         templateUrl: 'modules/transfers/client/views/list-transfers.client.view.html',
         controller: 'TransfersListController',
         controllerAs: 'vm',

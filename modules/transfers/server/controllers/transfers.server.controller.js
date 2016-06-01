@@ -104,64 +104,64 @@ exports.update = function(req, res) {
 ////
       switch(transfer.bloodType){
         case 'zero_minus':
-          if(found.source.zero_minus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.zero_minus -= transfer.amount;
+          if(found.source.zero_minus > transfer.amount){
+            found.source.zero_minus -= transfer.amount;
             found.destination.zero_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
           }
           break;
         case 'zero_plus':
-          if(found.source.zero_plus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.zero_plus -= transfer.amount;
+          if(found.source.zero_plus > transfer.amount){
+            found.source.zero_plus -= transfer.amount;
             found.destination.zero_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
           }
           break;
         case 'A_plus':
-          if(found.source.A_plus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.A_plus -= transfer.amount;
+          if(found.source.A_plus > transfer.amount){
+            found.source.A_plus -= transfer.amount;
             found.destination.A_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
           }
           break;
         case 'A_minus':
-          if(found.source.A_minus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.A_minus -= transfer.amount;
+          if(found.source.A_minus > transfer.amount){
+            found.source.A_minus -= transfer.amount;
             found.destination.A_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
           }
           break;
         case 'B_plus':
-          if(found.source.B_plus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.B_plus -= transfer.amount;
+          if(found.source.B_plus > transfer.amount){
+            found.source.B_plus -= transfer.amount;
             found.destination.B_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
           }
           break;
         case 'B_minus':
-          if(found.source.B_minus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.B_minus -= transfer.amount;
+          if(found.source.B_minus > transfer.amount){
+            found.source.B_minus -= transfer.amount;
             found.destination.B_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
           }
           break;
         case 'AB_plus':
-          if(found.source.AB_plus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.AB_plus -= transfer.amount;
+          if(found.source.AB_plus > transfer.amount){
+            found.source.AB_plus -= transfer.amount;
             found.destination.AB_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
           }
           break;
         case 'AB_minus':
-          if(found.source.AB_minus > -1 /*TODO: transfer.amount*/){
-            //TODO: decrement//found.source.AB_minus -= transfer.amount;
+          if(found.source.AB_minus > transfer.amount){
+            found.source.AB_minus -= transfer.amount;
             found.destination.AB_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");

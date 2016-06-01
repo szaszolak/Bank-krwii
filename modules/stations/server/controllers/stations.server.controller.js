@@ -49,9 +49,8 @@ exports.read = function(req, res) {
   station.AB_minus +
   station.AB_plus
   ;
-
+  station.totalAmount = totalAmount;
   station.stats = [
-    {name: 'Razem', value: totalAmount},
     {name: '0 Rh+', value: (totalAmount <= 0) ? 0 : station.zero_plus/totalAmount},
     {name: '0 Rh-', value: (totalAmount <= 0) ? 0 : station.zero_minus/totalAmount},
     {name: 'A Rh+', value: (totalAmount <= 0) ? 0 : station.A_plus/totalAmount},

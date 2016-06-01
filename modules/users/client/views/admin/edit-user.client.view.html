@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label class="control-label" for="roles">Role</label>
+          <label class="control-label" for="roles">Rola</label>
           <div class="controls">
             <input class="form-control" type="text" name="roles" ng-model="user.roles" id="roles" ng-list required />
             <div ng-messages="userForm.roles.$error" role="alert">
@@ -30,11 +30,11 @@
         </div>
 
         <div class="form-group" show-errors>
-          <label class="control-label" for="station">Station</label>
+          <label class="control-label" for="station">Stacja</label>
           <div class="controls">
           <input type="search" class="form-control" placeholder="Wyszukaj dawce" results="0" ng-model="searchText.name" />
           <select name="station" id="station" ng-model="user.station" class="form-control" placeholder="Stacja">
-            <option ng-repeat="station in stations | filter:searchText.name" value="{{station}}">{{station.name}}</option>
+            <option ng-repeat="station in stations | filter:searchText.name" value="{{station._id}}">{{station.name}}</option>
           </select>
             <div ng-messages="userForm.station.$error" role="alert">
               <p class="help-block error-text" ng-message="required">At least one role is required.</p>

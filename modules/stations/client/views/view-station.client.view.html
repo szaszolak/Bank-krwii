@@ -18,7 +18,7 @@
   <p class="lead" data-ng-bind="vm.station.addres"></p>
   <div class='row'>
     <div class='col-md-1' ng-repeat="blood_perc in vm.station.stats">
-      {{blood_perc.name}}: {{blood_perc.value}}%
+      {{blood_perc.name}}: {{blood_perc.value*100 | number:1}}%
     </div>
   </div>
   <div id='manage_station' ng-show="vm.isManager">

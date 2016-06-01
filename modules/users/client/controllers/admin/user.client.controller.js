@@ -6,6 +6,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     $scope.user = userResolve;
     $scope.stations = StationsService.query();
 
+
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
         if (user) {

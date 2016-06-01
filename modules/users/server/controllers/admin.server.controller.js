@@ -29,8 +29,8 @@ exports.update = function (req, res) {
   user.roles = req.body.roles;
 
   if(req.body.station){
-    var station = JSON.parse(req.body.station);
-    user.station = mongoose.Types.ObjectId(station._id);
+    //var station = JSON.parse(req.body.station);
+    user.station = mongoose.Types.ObjectId(req.body.station);
 
     console.log("user.station");
     console.log(user.station);

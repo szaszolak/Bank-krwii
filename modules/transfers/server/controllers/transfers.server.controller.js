@@ -101,7 +101,9 @@ exports.update = function(req, res) {
         });
       }
 
-////
+      console.log("transfer.amount");
+      console.log(transfer.amount);
+
       switch(transfer.bloodType){
         case 'zero_minus':
           if(found.source.zero_minus > transfer.amount){
@@ -196,7 +198,7 @@ exports.update = function(req, res) {
               message: "Unknown blood type"
             });
       }
-////
+
       found.source.save(function(err) {
         if (err) {
           return res.status(400).send({
@@ -219,18 +221,28 @@ exports.update = function(req, res) {
           console.log(found.destination);
         }
       });
+
+      transfer.save(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(transfer);
+        }
+      });
+    });
+  } else {
+    transfer.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(transfer);
+      }
     });
   }
-
-  transfer.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(transfer);
-    }
-  });
 };
 
 /**

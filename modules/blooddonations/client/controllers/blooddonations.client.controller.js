@@ -18,7 +18,6 @@
     vm.remove = remove;
     vm.donnors = DonnorsService.query({stationId: Authentication.user.station});
     vm.save = save;
-    debugger;
     vm.isUserAllowedToEdit = vm.blooddonation.station == Authentication.user.station && (Authentication.user.roles.indexOf("manager") >= 0 || 
       Authentication.user.roles.indexOf("employee") >= 0);
   //[{id: 1, name:'Jan', surname:'Kowalski', pesel: 93120811444},{id: 2, name:'Anna', surname:'Mucha',pesel: 93120811332}]

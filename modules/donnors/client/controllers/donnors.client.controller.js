@@ -18,6 +18,7 @@
     vm.remove = remove;
     vm.save = save;
     vm.types = ["0+","0-","A+","A-","B+","B-","AB+","AB-"];
+    vm.isEmployee = Authentication.user.roles.indexOf("manager") >=0 || Authentication.user.roles.indexOf("employee") >=0; 
 
     // Remove existing Donnor
     function remove() {

@@ -109,6 +109,9 @@ exports.update = function(req, res) {
             found.destination.zero_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         case 'zero_plus':
@@ -117,6 +120,9 @@ exports.update = function(req, res) {
             found.destination.zero_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         case 'A_plus':
@@ -125,6 +131,9 @@ exports.update = function(req, res) {
             found.destination.A_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         case 'A_minus':
@@ -133,6 +142,9 @@ exports.update = function(req, res) {
             found.destination.A_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         case 'B_plus':
@@ -141,6 +153,9 @@ exports.update = function(req, res) {
             found.destination.B_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         case 'B_minus':
@@ -149,6 +164,9 @@ exports.update = function(req, res) {
             found.destination.B_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         case 'AB_plus':
@@ -157,6 +175,9 @@ exports.update = function(req, res) {
             found.destination.AB_plus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         case 'AB_minus':
@@ -165,6 +186,9 @@ exports.update = function(req, res) {
             found.destination.AB_minus += transfer.amount;
           }else{
             console.log("ERROR: Incorrect transfer amount");
+            return res.status(400).send({
+              message: "Incorrect transfer amount"
+            });
           }
           break;
         default:

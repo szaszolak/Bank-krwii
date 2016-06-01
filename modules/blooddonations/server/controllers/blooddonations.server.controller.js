@@ -47,7 +47,18 @@ exports.read = function(req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   blooddonation.isCurrentUserOwner = req.user && blooddonation.user && blooddonation.user._id.toString() === req.user._id.toString() ? true : false;
 
-  res.jsonp(blooddonation);
+  Donnor.findById(blooddonation.donnor).exec(function (err, found) {
+    console.log("db findById Donnor:");
+    console.log(found);
+    if(err){
+        return res.status(404).send({
+          message: err
+        });
+    } else {
+      blooddonation.donnor = found;
+      res.jsonp(blooddonation);
+    }
+  });
 };
 
 /**

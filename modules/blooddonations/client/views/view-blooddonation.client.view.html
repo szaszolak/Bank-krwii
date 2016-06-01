@@ -1,9 +1,11 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.blooddonation.donnor.name}} {{vm.blooddonation.donnor.surname}}</h1>
+      <h4 class="list-group-item-heading">Ilość: {{vm.blooddonation.amount}}l {{vm.blooddonation.donnor.blood_type}},
+       </br>dnia: {{vm.blooddonation.created | date:'mediumDate'}}</h4>
+      <h5>{{vm.blooddonation.donnor.name}} {{vm.blooddonation.donnor.surname}} {{vm.blooddonation.donnor.pesel}} </h5>
   </div>
   <div class="pull-right"
-       data-ng-show="vm.blooddonation.isCurrentUserOwner">
+       data-ng-show="vm.isUserAllowedToEdit">
     <a class="btn btn-primary"
        data-ui-sref="blooddonations.edit({ blooddonationId: vm.blooddonation._id })">
       <i class="glyphicon glyphicon-edit"></i>
@@ -12,6 +14,4 @@
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-  
-  <p class="lead">{{vm.blooddonation.amount}}l</p>
 </section>

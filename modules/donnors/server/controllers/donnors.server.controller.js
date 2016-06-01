@@ -114,7 +114,7 @@ exports.list = function(req, res) {
             for (var i = 0; i < donnors.length; i++) {
               
               var donnorDonations = blooddonations.filter(function(element){
-                return element.donnor._id.toString() == donnors[i]._id.toString(); 
+                return element.donnor?element.donnor._id.toString() == donnors[i]._id.toString(): ""; 
               });
 
               console.log("donnorDonations.length");

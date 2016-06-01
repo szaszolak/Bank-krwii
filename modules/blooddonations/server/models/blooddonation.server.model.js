@@ -18,9 +18,9 @@ var BlooddonationSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  user: {
+  station: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'Station'
   },
   donnor: {
     type: Schema.ObjectId,

@@ -19,7 +19,7 @@
         </div>
           <div class="form-group" show-errors>
           <label class="control-label" for="amount">Ilość</label> 
-          <input name="amount" id="amount" type="number" class="form-control" placeholder="Ilość" ng-model="donnation.amount" required/>          
+          <input name="amount" id="amount" type="number" class="form-control" placeholder="Ilość" ng-model="vm.blooddonation.amount" required/>          
           <div ng-messages="vm.form.blooddonationForm.amount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Uzupełnij ilość.</p>
           </div>
